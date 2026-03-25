@@ -1,56 +1,120 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script>
-const { jsPDF } = window.jspdf;
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Alt Grieth Gutschein</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-document.getElementById("genBtn").addEventListener("click", function(){
+<!-- jsPDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<style>
+body {
+  margin:0;
+  font-family: Georgia, serif;
+  background:#2b2b2b;
+  display:flex;
+  justify-content:center;
+  padding:20px;
+}
+
+#container {
+  max-width:600px;
+  width:100%;
+  background:#fff;
+  padding:20px;
+  border-radius:10px;
+  text-align:center;
+}
+
+input, textarea, button {
+  width:95%;
+  padding:12px;
+  margin:10px 0;
+  border-radius:6px;
+  border:1px solid #b08a5b;
+}
+
+button {
+  background:#b08a5b;
+  color:white;
+  cursor:pointer;
+}
+
+.voucher-box {
+  background:#fffaf0;
+  border:3px solid #b08a5b;
+  padding:20px;
+  margin-top:20px;
+  border-radius:15px;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+<h2>Gutschein Alt Grieth</h2>
+
+<input id="naam" placeholder="Naam">
+<input id="bedrag" placeholder="Bedrag">
+<textarea id="tekst" placeholder="Bericht"></textarea>
+
+<button onclick="maakVoucher()">Gutschein genereren</button>
+
+<div id="voucher"></div>
+
+</div>
+
+<script>
+function maakVoucher(){
 
   const naam = document.getElementById("naam").value;
   const bedrag = document.getElementById("bedrag").value;
   const tekst = document.getElementById("tekst").value;
 
   if(!naam || !bedrag){
-    alert("Vul naam en bedrag in");
+    alert("Vul alles in");
     return;
   }
 
   const code = "AG-" + Math.random().toString(36).substr(2,8).toUpperCase();
-  const qr = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + code;
 
   document.getElementById("voucher").innerHTML = `
     <div class="voucher-box">
       <h1>GUTSCHEIN</h1>
       <h2>€${bedrag}</h2>
-      <p><b>Für:</b> ${naam}</p>
-      ${tekst ? `<p style="font-style:italic;margin:15px 0;">"${tekst}"</p>` : ""}
-      <img src="${qr}" style="margin:20px 0;">
-      <p><b>Code:</b> ${code}</p>
-      <hr>
-      <button id="downloadBtn">Download PDF</button>
+      <p>Voor: ${naam}</p>
+      <p>${tekst}</p>
+      <p>Code: ${code}</p>
+      <button onclick="downloadPDF('${naam}','${bedrag}','${tekst}','${code}')">
+        Download PDF
+      </button>
     </div>
   `;
+}
 
-  document.getElementById("downloadBtn").addEventListener("click", function(){
+function downloadPDF(naam, bedrag, tekst, code){
 
-    const pdf = new jsPDF();
+  const { jsPDF } = window.jspdf;
+  const pdf = new jsPDF();
 
-    pdf.setFont("helvetica","bold");
-    pdf.setFontSize(22);
-    pdf.text("GUTSCHEIN ALT GRIETh", 20, 30);
+  pdf.setFontSize(20);
+  pdf.text("GUTSCHEIN ALT GRIETh", 20, 30);
 
-    pdf.setFontSize(18);
-    pdf.text("Bedrag: €" + bedrag, 20, 50);
+  pdf.setFontSize(16);
+  pdf.text("Bedrag: €" + bedrag, 20, 50);
+  pdf.text("Naam: " + naam, 20, 65);
+  pdf.text("Code: " + code, 20, 80);
 
-    pdf.setFontSize(14);
-    pdf.text("Voor: " + naam, 20, 65);
+  if(tekst){
+    pdf.text("Bericht: " + tekst, 20, 95);
+  }
 
-    if(tekst){
-      pdf.text("Bericht: " + tekst, 20, 80);
-    }
-
-    pdf.text("Code: " + code, 20, 100);
-
-    pdf.save("gutschein.pdf");
-  });
-
-});
+  pdf.save("gutschein.pdf");
+}
 </script>
+
+</body>
+</html>
