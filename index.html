@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<title>Alt Grieth Gutschein</title>
+<title>Gutschein Alt Grieth</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -43,7 +43,7 @@ button {
   cursor:pointer;
 }
 
-/* PREMIUM VOUCHER */
+/* Gutschein Design */
 .voucher {
   margin-top:20px;
   padding:30px;
@@ -73,13 +73,13 @@ button {
 
 <div id="container">
 
-<h2>Gutschein Alt Grieth</h2>
+<h2>Gutschein erstellen – Alt Grieth</h2>
 
-<input id="naam" placeholder="Naam ontvanger">
-<input id="bedrag" placeholder="Bedrag (€)">
-<textarea id="tekst" placeholder="Persoonlijke boodschap"></textarea>
+<input id="naam" placeholder="Name des Empfängers">
+<input id="bedrag" placeholder="Betrag (€)">
+<textarea id="tekst" placeholder="Persönliche Nachricht (optional)"></textarea>
 
-<button onclick="maakVoucher()">Gutschein genereren</button>
+<button onclick="maakVoucher()">Gutschein erstellen</button>
 
 <div id="voucher"></div>
 
@@ -94,7 +94,7 @@ function maakVoucher(){
   let tekst = document.getElementById("tekst").value;
 
   if(!naam || !bedrag){
-    alert("Vul alles in");
+    alert("Bitte Name und Betrag eingeben");
     return;
   }
 
@@ -105,13 +105,15 @@ function maakVoucher(){
       <h1>GUTSCHEIN</h1>
       <h2>€${bedrag}</h2>
       <p><b>Für:</b> ${naam}</p>
-      <p style="font-style:italic;">${tekst}</p>
-      <p><b>Code:</b> ${code}</p>
+      ${tekst ? `<p style="font-style:italic;">${tekst}</p>` : ""}
+      <p><b>Gutscheincode:</b> ${code}</p>
       <hr>
-      <p class="small">1 jaar geldig - alleen met factuur</p>
+      <p class="small">
+        Dieser Gutschein ist 1 Jahr ab Kaufdatum gültig und nur zusammen mit der Rechnung einlösbar.
+      </p>
     </div>
 
-    <button onclick="downloadPDF()">Download PDF</button>
+    <button onclick="downloadPDF()">Als PDF herunterladen</button>
   `;
 }
 
@@ -125,7 +127,7 @@ function downloadPDF(){
     const pdf = new jsPDF();
 
     pdf.addImage(imgData, 'PNG', 10, 10, 180, 120);
-    pdf.save("gutschein.pdf");
+    pdf.save("gutschein-alt-grieth.pdf");
 
   });
 }
