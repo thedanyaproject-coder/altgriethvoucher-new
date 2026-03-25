@@ -1,78 +1,31 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-<meta charset="UTF-8">
-<title>Alt Grieth Gutschein</title>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
-<style>
-  body {
-    background-color: #f2ebe3;
-    display: flex;
-    justify-content: center;
-    padding: 30px;
-    font-family: 'Cinzel', serif;
-  }
-  .voucher-container {
-    width: 100%;
-    max-width: 520px;
-    padding: 20px;
-    border: 5px solid #a67c52; /* goud-bruin kader */
-    border-radius: 20px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+<div style="
+    width:100%;
+    max-width:520px;
+    margin:20px auto;
+    padding:20px;
+    border:5px solid #a67c52;
+    border-radius:20px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.25);
     background: #fff8f0 url('https://i.imgur.com/6bK2VxJ.png') no-repeat top right;
-    background-size: 80px auto;
-    position: relative;
-    overflow: hidden;
-    text-align: center;
-  }
-  .voucher-container h1 {
-    font-size: 36px;
-    color: #8b4513;
-    margin-bottom: 10px;
-  }
-  .voucher-container p {
-    font-size: 24px;
-    margin: 5px 0;
-    font-weight: bold;
-    color: #5a3e1b;
-  }
-  .voucher-text {
-    font-size: 18px;
-    line-height: 1.5;
-    color: #5a3e1b;
-    margin: 20px 0;
-  }
-  .voucher-iframe {
-    width: 100%;
-    height: 500px;
-    border: none;
-    border-radius: 15px;
-  }
-  .qr-code {
-    position: absolute;
-    bottom: 15px;
-    right: 15px;
-    width: 80px;
-    height: 80px;
-  }
-</style>
-</head>
-<body>
-
-<div class="voucher-container">
-  <h1>GUTSCHEIN</h1>
-  <p>für Alt Grieth</p>
-  <p>Wert: <strong>50€</strong></p>
-
-  <div class="voucher-text">
+    background-size:80px auto;
+    position:relative;
+    overflow:hidden;
+    text-align:center;
+    font-family: 'Cinzel', serif;
+">
+  <h1 style="font-size:36px; margin-bottom:10px; color:#8b4513;">GUTSCHEIN</h1>
+  <p style="font-size:24px; margin:5px 0; font-weight:bold; color:#5a3e1b;">für Alt Grieth</p>
+  <p style="font-size:22px; margin:10px 0;">Wert: <strong>50€</strong></p>
+  <div style="margin:20px 0; font-size:18px; line-height:1.5; color:#5a3e1b;">
     Diese Online-Geschenkbon ist gültig bis 1 Jahr nach Kaufdatum<br>
     und nur zusammen mit der Kaufrechnung einlösbar.
   </div>
-
-  <iframe class="voucher-iframe" src="URL_VAN_JOUW_VOUCHER" scrolling="no"></iframe>
-
-  <img src="URL_VAN_JOUW_QR_CODE" alt="QR-Code" class="qr-code">
+  <iframe 
+      src="https://thedanyaproject-coder.github.io/altgriethvoucher-new/" 
+      style="width:100%; height:1200px; border:none; overflow:hidden; border-radius:15px;" 
+      scrolling="no">
+  </iframe>
+  <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://thedanyaproject-coder.github.io/altgriethvoucher-new/" 
+       alt="QR-Code" 
+       style="position:absolute; bottom:15px; right:15px; width:80px; height:80px;">
 </div>
-  
-</body>
-</html>
