@@ -5,14 +5,14 @@
 <title>Alt Grieth Gutschein</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- jsPDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <style>
 body {
   margin:0;
   font-family: Georgia, serif;
-  background:#2b2b2b;
+  background:#f5f5f5;
   display:flex;
   justify-content:center;
   padding:20px;
@@ -21,10 +21,11 @@ body {
 #container {
   max-width:600px;
   width:100%;
-  background:#fff;
+  background:white;
   padding:20px;
   border-radius:10px;
   text-align:center;
+  box-shadow:0 10px 30px rgba(0,0,0,0.2);
 }
 
 input, textarea, button {
@@ -38,15 +39,32 @@ input, textarea, button {
 button {
   background:#b08a5b;
   color:white;
+  border:none;
   cursor:pointer;
 }
 
-.voucher-box {
-  background:#fffaf0;
-  border:3px solid #b08a5b;
-  padding:20px;
+/* PREMIUM VOUCHER */
+.voucher {
   margin-top:20px;
-  border-radius:15px;
+  padding:30px;
+  border:4px solid #b08a5b;
+  border-radius:20px;
+  background:linear-gradient(145deg,#fffaf0,#f2e3c6);
+  box-shadow:0 10px 25px rgba(0,0,0,0.3);
+}
+
+.voucher h1 {
+  letter-spacing:5px;
+  color:#b08a5b;
+}
+
+.voucher h2 {
+  font-size:50px;
+  margin:10px 0;
+}
+
+.small {
+  font-size:12px;
 }
 </style>
 </head>
@@ -57,9 +75,9 @@ button {
 
 <h2>Gutschein Alt Grieth</h2>
 
-<input id="naam" placeholder="Naam">
-<input id="bedrag" placeholder="Bedrag">
-<textarea id="tekst" placeholder="Bericht"></textarea>
+<input id="naam" placeholder="Naam ontvanger">
+<input id="bedrag" placeholder="Bedrag (€)">
+<textarea id="tekst" placeholder="Persoonlijke boodschap"></textarea>
 
 <button onclick="maakVoucher()">Gutschein genereren</button>
 
@@ -68,52 +86,50 @@ button {
 </div>
 
 <script>
+
 function maakVoucher(){
 
-  const naam = document.getElementById("naam").value;
-  const bedrag = document.getElementById("bedrag").value;
-  const tekst = document.getElementById("tekst").value;
+  let naam = document.getElementById("naam").value;
+  let bedrag = document.getElementById("bedrag").value;
+  let tekst = document.getElementById("tekst").value;
 
   if(!naam || !bedrag){
     alert("Vul alles in");
     return;
   }
 
-  const code = "AG-" + Math.random().toString(36).substr(2,8).toUpperCase();
+  let code = "AG-" + Math.random().toString(36).substr(2,8).toUpperCase();
 
   document.getElementById("voucher").innerHTML = `
-    <div class="voucher-box">
+    <div class="voucher" id="voucherPrint">
       <h1>GUTSCHEIN</h1>
       <h2>€${bedrag}</h2>
-      <p>Voor: ${naam}</p>
-      <p>${tekst}</p>
-      <p>Code: ${code}</p>
-      <button onclick="downloadPDF('${naam}','${bedrag}','${tekst}','${code}')">
-        Download PDF
-      </button>
+      <p><b>Für:</b> ${naam}</p>
+      <p style="font-style:italic;">${tekst}</p>
+      <p><b>Code:</b> ${code}</p>
+      <hr>
+      <p class="small">1 jaar geldig - alleen met factuur</p>
     </div>
+
+    <button onclick="downloadPDF()">Download PDF</button>
   `;
 }
 
-function downloadPDF(naam, bedrag, tekst, code){
+function downloadPDF(){
 
   const { jsPDF } = window.jspdf;
-  const pdf = new jsPDF();
 
-  pdf.setFontSize(20);
-  pdf.text("GUTSCHEIN ALT GRIETh", 20, 30);
+  html2canvas(document.getElementById("voucherPrint")).then(canvas => {
 
-  pdf.setFontSize(16);
-  pdf.text("Bedrag: €" + bedrag, 20, 50);
-  pdf.text("Naam: " + naam, 20, 65);
-  pdf.text("Code: " + code, 20, 80);
+    const imgData = canvas.toDataURL("image/png");
+    const pdf = new jsPDF();
 
-  if(tekst){
-    pdf.text("Bericht: " + tekst, 20, 95);
-  }
+    pdf.addImage(imgData, 'PNG', 10, 10, 180, 120);
+    pdf.save("gutschein.pdf");
 
-  pdf.save("gutschein.pdf");
+  });
 }
+
 </script>
 
 </body>
