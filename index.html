@@ -5,19 +5,20 @@
 <title>Gutschein Alt Grieth</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<!-- Fonts (middeleeuws / elegant) -->
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Great+Vibes&family=Cormorant+Garamond:wght@300;500&display=swap" rel="stylesheet">
 
 <!-- Scripts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <style>
 
 body {
   margin:0;
-  background:#111;
-  font-family:'Inter', sans-serif;
+  background:#f4f1ea;
+  font-family:'Cormorant Garamond', serif;
   display:flex;
   justify-content:center;
   padding:20px;
@@ -28,20 +29,22 @@ body {
   width:100%;
   background:white;
   padding:25px;
-  border-radius:12px;
+  border-radius:10px;
   text-align:center;
 }
 
+/* input */
 input, textarea, button {
   width:95%;
   padding:12px;
   margin:10px 0;
   border-radius:6px;
   border:1px solid #ccc;
+  font-family:inherit;
 }
 
 button {
-  background:#c8a96a;
+  background:#8b6b3e;
   color:white;
   border:none;
   cursor:pointer;
@@ -50,71 +53,48 @@ button {
 /* ===== VOUCHER ===== */
 
 .voucher {
-  width:794px;
-  height:1123px;
-  background:#1a1a1a;
-  color:white;
+  width:1123px;
+  height:794px;
+  background:linear-gradient(135deg,#f5e6c8,#e8d3a3);
+  position:relative;
   padding:60px;
   box-sizing:border-box;
-  position:relative;
+  color:#3a2e1f;
 }
 
-/* rand */
+/* perkament rand */
 .border {
   position:absolute;
   top:20px; left:20px; right:20px; bottom:20px;
-  border:2px solid #c8a96a;
-}
-
-/* lint boven */
-.ribbon {
-  position:absolute;
-  top:0;
-  left:0;
-  right:0;
-  height:80px;
-  background:#c8a96a;
-}
-
-/* strik */
-.bow {
-  position:absolute;
-  top:20px;
-  left:50%;
-  transform:translateX(-50%);
-  font-size:28px;
-}
-
-/* bestek icoon */
-.cutlery {
-  position:absolute;
-  top:120px;
-  width:100%;
-  text-align:center;
-  opacity:0.25;
+  border:3px solid #8b6b3e;
 }
 
 /* titel */
 .title {
-  font-family:'Playfair Display', serif;
-  font-size:60px;
-  letter-spacing:5px;
+  font-family:'Cinzel', serif;
+  font-size:40px;
   text-align:center;
-  margin-top:140px;
+  letter-spacing:3px;
+}
+
+.subtitle {
+  font-family:'Great Vibes', cursive;
+  text-align:center;
+  font-size:40px;
+  margin-top:10px;
 }
 
 /* bedrag */
 .amount {
-  font-size:90px;
+  font-size:80px;
   text-align:center;
   margin:60px 0;
-  font-weight:600;
 }
 
 /* naam */
 .name {
-  font-size:28px;
   text-align:center;
+  font-size:30px;
 }
 
 /* bericht */
@@ -122,27 +102,31 @@ button {
   text-align:center;
   margin-top:20px;
   font-style:italic;
-  opacity:0.8;
 }
 
-/* footer */
-.footer {
+/* QR */
+.qr {
   position:absolute;
-  bottom:100px;
+  bottom:60px;
   left:60px;
-  right:60px;
-  text-align:center;
-  font-size:14px;
-  opacity:0.7;
 }
 
 /* code */
 .code {
   position:absolute;
-  bottom:40px;
+  bottom:60px;
   right:60px;
+  font-size:14px;
+}
+
+/* footer */
+.footer {
+  position:absolute;
+  bottom:20px;
+  left:0;
+  right:0;
+  text-align:center;
   font-size:12px;
-  opacity:0.5;
 }
 
 </style>
@@ -182,23 +166,10 @@ function maakVoucher(){
   document.getElementById("preview").innerHTML = `
   
   <div id="voucherPrint" class="voucher">
-
     <div class="border"></div>
 
-    <div class="ribbon"></div>
-    <div class="bow">🎀</div>
-
-    <div class="cutlery">
-      <svg width="80" height="40" viewBox="0 0 100 40" fill="#c8a96a">
-        <rect x="10" y="0" width="4" height="40"/>
-        <rect x="20" y="0" width="4" height="40"/>
-        <rect x="30" y="0" width="4" height="40"/>
-        <rect x="60" y="0" width="6" height="40"/>
-        <rect x="70" y="0" width="6" height="25"/>
-      </svg>
-    </div>
-
-    <div class="title">GUTSCHEIN</div>
+    <div class="title">GASTHAUS ALT GRIETh</div>
+    <div class="subtitle">Gutschein</div>
 
     <div class="amount">€${bedrag}</div>
 
@@ -206,17 +177,24 @@ function maakVoucher(){
 
     ${tekst ? `<div class="message">"${tekst}"</div>` : ""}
 
-    <div class="footer">
-      Ein Geschenk für genussvolle Momente im Alt Grieth<br><br>
-      Dieser Gutschein ist 1 Jahr gültig und nur zusammen mit der Rechnung einlösbar.
-    </div>
+    <div id="qrcode" class="qr"></div>
 
     <div class="code">${code}</div>
 
+    <div class="footer">
+      Dieser Gutschein ist 1 Jahr gültig und nur zusammen mit der Rechnung einlösbar.
+    </div>
   </div>
 
   <button onclick="downloadPDF()">PDF herunterladen</button>
   `;
+
+  // QR code genereren
+  new QRCode(document.getElementById("qrcode"), {
+    text: code,
+    width: 100,
+    height: 100
+  });
 }
 
 function downloadPDF(){
@@ -229,8 +207,8 @@ function downloadPDF(){
 
     const img = canvas.toDataURL("image/png");
 
-    const pdf = new jsPDF('p','pt','a4');
-    pdf.addImage(img,'PNG',0,0,595,842);
+    const pdf = new jsPDF('l','pt','a4'); // liggend!
+    pdf.addImage(img,'PNG',0,0,842,595);
 
     pdf.save("gutschein-alt-grieth.pdf");
   });
