@@ -2,271 +2,77 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<title>Gutschein Alt Grieth</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<!-- Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Great+Vibes&family=Cormorant+Garamond:wght@300;500&display=swap" rel="stylesheet">
-
-<!-- Scripts -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-
+<title>Alt Grieth Gutschein</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
 <style>
-
-body {
-  margin:0;
-  background:#f3efe7;
-  font-family:'Cormorant Garamond', serif;
-  display:flex;
-  justify-content:center;
-  padding:20px;
-}
-
-#container {
-  max-width:800px;
-  width:100%;
-  background:white;
-  padding:25px;
-  border-radius:10px;
-  text-align:center;
-}
-
-/* inputs */
-input, textarea, button {
-  width:95%;
-  padding:12px;
-  margin:10px 0;
-  border-radius:6px;
-  border:1px solid #ccc;
-  font-family:inherit;
-}
-
-button {
-  background:#bdad82;
-  color:white;
-  border:none;
-  cursor:pointer;
-}
-
-/* ===== VOUCHER ===== */
-
-.voucher {
-  width:1123px;
-  height:794px;
-  position:relative;
-  padding:80px;
-  box-sizing:border-box;
-
-  /* parchment texture */
-  background:
-    radial-gradient(circle at 20% 30%, rgba(120,90,40,0.12) 0px, transparent 120px),
-    radial-gradient(circle at 80% 70%, rgba(120,90,40,0.10) 0px, transparent 140px),
-    radial-gradient(circle at 50% 50%, rgba(0,0,0,0.04) 0px, transparent 200px),
-    linear-gradient(135deg,#f8f1dc,#ecd8a6);
-
-  color:#3a2e1f;
-}
-
-/* border */
-.border {
-  position:absolute;
-  top:25px; left:25px; right:25px; bottom:25px;
-  border:2px solid #bdad82;
-}
-
-/* ornaments */
-.ornament {
-  text-align:center;
-  font-size:20px;
-  letter-spacing:8px;
-  opacity:0.5;
-}
-
-/* title */
-.title {
-  font-family:'Cinzel', serif;
-  font-size:44px;
-  text-align:center;
-  letter-spacing:4px;
-  margin-top:20px;
-}
-
-.subtitle {
-  font-family:'Great Vibes', cursive;
-  text-align:center;
-  font-size:66px;
-  margin-top:10px;
-}
-
-/* amount */
-.amount {
-  font-size:90px;
-  text-align:center;
-  margin:70px 0;
-}
-
-/* name */
-.name {
-  text-align:center;
-  font-size:44px;
-}
-
-/* message */
-.message {
-  text-align:center;
-  margin-top:20px;
-  font-style:italic;
-  font-size:32px;
-}
-
-/* wax seal */
-.seal {
-  position:absolute;
-  bottom:60px;
-  left:60px;
-  width:110px;
-  height:110px;
-  border-radius:50%;
-  background:radial-gradient(circle,#7a1f1f,#4a0f0f);
-  box-shadow:0 5px 15px rgba(0,0,0,0.4);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#e6c27a;
-  font-size:12px;
-  text-align:center;
-  padding:10px;
-}
-
-/* QR */
-.qr {
-  position:absolute;
-  bottom:60px;
-  right:60px;
-}
-
-/* serial */
-.serial {
-  position:absolute;
-  bottom:20px;
-  right:40px;
-  font-size:12px;
-  opacity:0.6;
-  letter-spacing:2px;
-}
-
-/* footer */
-.footer {
-  position:absolute;
-  bottom:20px;
-  left:0;
-  right:0;
-  text-align:center;
-  font-size:12px;
-  opacity:0.7;
-}
-
+  body {
+    background-color: #f2ebe3;
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+    font-family: 'Cinzel', serif;
+  }
+  .voucher-container {
+    width: 100%;
+    max-width: 520px;
+    padding: 20px;
+    border: 5px solid #a67c52; /* goud-bruin kader */
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    background: #fff8f0 url('https://i.imgur.com/6bK2VxJ.png') no-repeat top right;
+    background-size: 80px auto;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+  .voucher-container h1 {
+    font-size: 36px;
+    color: #8b4513;
+    margin-bottom: 10px;
+  }
+  .voucher-container p {
+    font-size: 24px;
+    margin: 5px 0;
+    font-weight: bold;
+    color: #5a3e1b;
+  }
+  .voucher-text {
+    font-size: 18px;
+    line-height: 1.5;
+    color: #5a3e1b;
+    margin: 20px 0;
+  }
+  .voucher-iframe {
+    width: 100%;
+    height: 500px;
+    border: none;
+    border-radius: 15px;
+  }
+  .qr-code {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    width: 80px;
+    height: 80px;
+  }
 </style>
 </head>
-
 <body>
 
-<div id="container">
+<div class="voucher-container">
+  <h1>GUTSCHEIN</h1>
+  <p>für Alt Grieth</p>
+  <p>Wert: <strong>50€</strong></p>
 
-<h2>Gutschein erstellen – Alt Grieth</h2>
-
-<input id="naam" placeholder="Name des Empfängers">
-<input id="bedrag" placeholder="Betrag (€)">
-<textarea id="tekst" placeholder="Persönliche Nachricht (optional)"></textarea>
-
-<button onclick="maakVoucher()">Gutschein erstellen</button>
-
-<div id="preview"></div>
-
-</div>
-
-<script>
-
-let counter = 1;
-
-function generateSerial(){
-  let year = new Date().getFullYear();
-  let number = String(counter).padStart(4, '0');
-  counter++;
-  return "AG-" + year + "-" + number;
-}
-
-function maakVoucher(){
-
-  let naam = document.getElementById("naam").value;
-  let bedrag = document.getElementById("bedrag").value;
-  let tekst = document.getElementById("tekst").value;
-
-  if(!naam || !bedrag){
-    alert("Bitte alles ausfüllen");
-    return;
-  }
-
-  let serial = generateSerial();
-
-  document.getElementById("preview").innerHTML = `
-  
-  <div id="voucherPrint" class="voucher">
-    <div class="border"></div>
-
-    <div class="ornament">✦ ✦ ✦ ✦ ✦</div>
-
-    <div class="title">GASTHAUS ALT GRIETH</div>
-    <div class="subtitle">Gutschein</div>
-
-    <div class="amount">€${bedrag}</div>
-
-    <div class="name">Für ${naam}</div>
-
-    ${tekst ? `<div class="message">"${tekst}"</div>` : ""}
-
-    <div class="seal">Alt Grieth<br>Genuss</div>
-
-    <div id="qrcode" class="qr"></div>
-
-    <div class="serial">${serial}</div>
-
-    <div class="footer">
-      Dieser Gutschein ist 1 Jahr nach kaufdatum gültig 
-    </div>
-
+  <div class="voucher-text">
+    Diese Online-Geschenkbon ist gültig bis 1 Jahr nach Kaufdatum<br>
+    und nur zusammen mit der Kaufrechnung einlösbar.
   </div>
 
-  <button onclick="downloadPDF()">PDF herunterladen</button>
-  `;
+  <iframe class="voucher-iframe" src="URL_VAN_JOUW_VOUCHER" scrolling="no"></iframe>
 
-  new QRCode(document.getElementById("qrcode"), {
-    text: serial,
-    width: 100,
-    height: 100
-  });
-}
-
-function downloadPDF(){
-
-  const { jsPDF } = window.jspdf;
-
-  html2canvas(document.getElementById("voucherPrint"), {
-    scale:2
-  }).then(canvas => {
-
-    const img = canvas.toDataURL("image/png");
-
-    const pdf = new jsPDF('l','pt','a4');
-    pdf.addImage(img,'PNG',0,0,842,595);
-
-    pdf.save("gutschein-alt-grieth.pdf");
-  });
-}
-
-</script>
+  <img src="URL_VAN_JOUW_QR_CODE" alt="QR-Code" class="qr-code">
+</div>
 
 </body>
 </html>
